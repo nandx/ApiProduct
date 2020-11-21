@@ -31,6 +31,12 @@ namespace ApiProduct
             
             //add by nanda - start
             
+            //remove field in json when value is null
+            services.AddMvc()
+                .AddJsonOptions(options => {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                });
+            
             //add dependency injection
             //if you usually use spring dependency injection,
             //this place you have to add you bean
@@ -43,8 +49,8 @@ namespace ApiProduct
                 {
                     Version = "v1",
                     Title = "Product API",
-                    Description = "A simple .net Core Web API using Swagger",
-                    TermsOfService = new Uri("https://example.com/terms"),
+                    Description = ".net Core Web API - Product",
+                    // TermsOfService = new Uri("https://github.com/nandx"),
                     Contact = new OpenApiContact
                     {
                         Name = "Nanda",
@@ -53,8 +59,8 @@ namespace ApiProduct
                     },
                     License = new OpenApiLicense
                     {
-                        Name = "Use under LICX",
-                        Url = new Uri("https://example.com/license"),
+                        Name = "GNU General Public License (GPL)",
+                        Url = new Uri("https://github.com/nandx"),
                     }
                 });
             });

@@ -4,11 +4,13 @@ namespace ApiProduct.Dto.Common
 {
     public class SearchListDto<T>
     {
-        public List<T> Data { get; set; }
+        public List<T> Listdata { get; set; }
 
         public bool Success { get; set; }
 
         public PageData Pagedata { get; set; }
+        
+        public ErrorMessage Errormessage { get; set; }
 
         public SearchListDto()
         {
@@ -16,13 +18,13 @@ namespace ApiProduct.Dto.Common
         
         public SearchListDto(List<T> list)
         {
-            Data = list;
+            Listdata = list;
             Success = true;
         }
         
         public SearchListDto(List<T> list, PageData pagedata)
         {
-            Data = list;
+            Listdata = list;
             Pagedata = pagedata;
             Success = true;
         }
@@ -47,7 +49,11 @@ namespace ApiProduct.Dto.Common
             Totalpage = totalpage;
             Totaldata = totaldata;
         }
+    }
 
-       
+    public class ErrorMessage
+    {
+        public string errorcode { get; set; }
+        public string errordescription { get; set; }
     }
 }

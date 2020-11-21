@@ -17,16 +17,16 @@ namespace ApiProduct.Controllers
 
         private readonly IProductService _iProductService;
 
+        // Dependency Injection in Constructor Class
         public ProductController(IProductService iProductService)
         {
             _iProductService = iProductService;
         }
 
-        // GET
         [HttpGet("search")]
-        public SearchListDto<ProductDto> Search()
+        public SearchListDto<ProductDto> Search([FromQuery] ProductParamSearchDto param)
         {
-            return _iProductService.search();
+            return _iProductService.Search(param);
         }
     }
 }

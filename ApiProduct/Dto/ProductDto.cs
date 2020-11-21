@@ -1,11 +1,12 @@
-﻿using System;
+﻿#nullable enable
+using System;
 
 namespace ApiProduct.Dto
 {
     public class ProductDto
     {
-        public String Productcode { get; set; }
+        public string? Productcode { get; set; }
         
-        public String Productname { get; set; }
+        public string? Productname { get; set; }
     }
 }
