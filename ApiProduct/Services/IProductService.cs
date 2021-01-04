@@ -6,5 +6,7 @@ namespace ApiProduct.Services
     public interface IProductService
     {
         public SearchListDto<ProductDto> Search(ProductParamSearchDto param);
+        
+        public FormDto<ProductDto> Add(ProductDto productDto);
     }
 }

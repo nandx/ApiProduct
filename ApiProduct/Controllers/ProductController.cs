@@ -6,6 +6,7 @@ using ApiProduct.Dto;
 using ApiProduct.Dto.Common;
 using ApiProduct.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace ApiProduct.Controllers
 {
@@ -14,7 +15,6 @@ namespace ApiProduct.Controllers
     [Route("product")]
     public class ProductController : ControllerBase
     {
-
         private readonly IProductService _iProductService;
 
         // Dependency Injection in Constructor Class
@@ -27,6 +27,12 @@ namespace ApiProduct.Controllers
         public SearchListDto<ProductDto> Search([FromQuery] ProductParamSearchDto param)
         {
             return _iProductService.Search(param);
+        }
+        
+        [HttpPost("add")]
+        public FormDto<ProductDto> Add(ProductDto productDto)
+        {
+            return _iProductService.Add(productDto);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ApiProduct.Configs;
 using ApiProduct.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace ApiProduct
@@ -27,6 +29,14 @@ namespace ApiProduct
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // database initial - start
+            services.Configure<MarketplaceDatabaseSettings>(
+                Configuration.GetSection(nameof(MarketplaceDatabaseSettings)));
+
+            services.AddSingleton<IMarketplaceDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<MarketplaceDatabaseSettings>>().Value);
+            // database initial - end
+            
             services.AddControllers();
             
             //add by nanda - start
@@ -70,7 +80,7 @@ namespace ApiProduct
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
             
             // Enable middleware to serve generated Swagger as a JSON endpoint.
@@ -82,6 +92,8 @@ namespace ApiProduct
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
             });
+
+            loggerFactory.AddLog4Net();
             
             if (env.IsDevelopment())
             {
